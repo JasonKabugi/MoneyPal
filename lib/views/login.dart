@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/configs/colors.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -79,11 +81,18 @@ class LoginScreen extends StatelessWidget {
                 MaterialButton(
                   onPressed: () async {
                     var response = await http.get(
-                      Uri.parse("http://localhost/expenses/login.php"),
+                      Uri.parse(
+                        "http://localhost/expenses/login.php?phone=${usernameController.text}&password=${passwordController.text}",
+                      ),
                     );
-                    print(response.body);
-                    store.write('username', usernameController.text);
-                    Get.toNamed("/home");
+                    var responseBody = jsonDecode(response.body);
+                    int loggedIn = responseBody['success'];
+                    if (loggedIn == 1) {
+                      store.write('username', usernameController.text);
+                      Get.toNamed("/home");
+                    } else {
+                      Get.snackbar("Error", "Invalid Username or Password");
+                    }
                   },
                   color: fiveColor,
                   height: 45,
