@@ -83,7 +83,7 @@ class _ExpensesState extends State<Expenses> {
     });
   }
 
-  void _showExpenseDialog({Map<String, dynamic>? existing, int? index}) {
+  void _showExpenseDialog({Map<String, dynamic>? existing}) {
     final nameController = TextEditingController(text: existing?["name"] ?? "");
     final amountController = TextEditingController(
       text: existing != null ? existing["amount"].toString() : "",

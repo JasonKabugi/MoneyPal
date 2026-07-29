@@ -1,4 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/configs/colors.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get_storage/get_storage.dart';
+
+TextEditingController usernameController =
+    TextEditingController(); //to access what is inside the textfield
+TextEditingController passwordController = TextEditingController();
+TextEditingController phoneController = TextEditingController();
+var store = GetStorage();
 
 class Registrationscreen extends StatelessWidget {
   const Registrationscreen({super.key});
@@ -6,96 +16,154 @@ class Registrationscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Registration"), centerTitle: true),
+      appBar: AppBar(
+        title: const Text("MoneyPal"),
+        backgroundColor: tertiaryColor,
+        foregroundColor: Colors.white,
+        centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 25),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [Image.asset("t1.png", height: 100, width: 200)],
+            ),
+
+            Text(
+              "Registration",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: sevenColor,
+              ),
+            ),
+
+            Text(
+              "Username:",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: sevenColor,
+              ),
+            ),
             TextField(
+              controller:
+                  usernameController, //to asociate with the textfield controller
               decoration: InputDecoration(
-                hintText: "Enter first name",
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(20),
                 ),
+                prefixIcon: Icon(Icons.person),
               ),
             ),
-            const SizedBox(height: 20),
+
+            Text(
+              "Email:",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: sevenColor,
+              ),
+            ),
             TextField(
+              controller:
+                  usernameController, //to asociate with the textfield controller
               decoration: InputDecoration(
-                hintText: "Enter Last Name",
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(20),
                 ),
+                prefixIcon: Icon(Icons.person),
               ),
             ),
 
-            const SizedBox(height: 20),
-
+            Text(
+              "Phone:",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: sevenColor,
+              ),
+            ),
             TextField(
+              controller:
+                  phoneController, //to asociate with the textfield controller
               decoration: InputDecoration(
-                hintText: "Enter Phone",
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(20),
                 ),
+                prefixIcon: Icon(Icons.person),
               ),
             ),
 
-            const SizedBox(height: 20),
-
+            Text(
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: sevenColor,
+              ),
+              "Password:",
+            ),
             TextField(
+              controller: passwordController,
               decoration: InputDecoration(
-                hintText: "Enter Email",
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(20),
                 ),
+                prefixIcon: Icon(Icons.lock),
               ),
             ),
-            const SizedBox(height: 20),
 
+            Text(
+              "Confirm Password:",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: sevenColor,
+              ),
+            ),
             TextField(
-              obscureText: true,
+              controller:
+                  usernameController, //to asociate with the textfield controller
               decoration: InputDecoration(
-                hintText: "Enter Password",
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(20),
                 ),
+                prefixIcon: Icon(Icons.person),
               ),
             ),
 
-            const SizedBox(height: 20),
-
-            TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                hintText: "Confirm Password",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            SizedBox(
-              width: 150,
-              height: 45,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text("Submit"),
-              ),
-            ),
-            const SizedBox(height: 15),
-
+            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(child: const Text("Registered already? ")),
-                const Text(
-                  "Login",
-                  style: TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
+                MaterialButton(
+                  onPressed: () {
+                    store.write('username', usernameController.text);
+                    Get.toNamed("/home");
+                  },
+                  color: fiveColor,
+                  height: 45,
+                  minWidth: 200,
+                  child: Text("Register"),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  child: Text(
+                    "Already Have an Account? SignIn",
+                    style: TextStyle(color: fourColor),
                   ),
+                  onTap: () {
+                    //code to navigate
+                    Get.toNamed("/login");
+                  },
                 ),
               ],
             ),

@@ -3,6 +3,7 @@ import 'package:flutter_application_1/configs/colors.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
 
 TextEditingController usernameController =
     TextEditingController(); //to access what is inside the textfield
@@ -76,7 +77,11 @@ class LoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 MaterialButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    var response = await http.get(
+                      Uri.parse("http://localhost/expenses/login.php"),
+                    );
+                    print(response.body);
                     store.write('username', usernameController.text);
                     Get.toNamed("/home");
                   },
